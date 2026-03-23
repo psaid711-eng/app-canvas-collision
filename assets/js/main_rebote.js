@@ -13,7 +13,7 @@ class Circle {
         this.posX = x;
         this.posY = y;
         this.radius = radius;
-        this.baseColor = color; // color original
+        this.baseColor = color;
         this.color = color;
         this.text = text;
         this.speed = speed;
@@ -36,7 +36,7 @@ class Circle {
     }
 
     update(context) {
-        // Rebote con paredes (esto sí se mantiene)
+        // Rebote con paredes
         if ((this.posX + this.radius) > window_width || (this.posX - this.radius) < 0) {
             this.dx = -this.dx;
         }
@@ -52,7 +52,7 @@ class Circle {
     }
 }
 
-// Crear N círculos
+// Crear círculos
 let N = 10;
 let circles = [];
 
@@ -64,15 +64,15 @@ for (let i = 0; i < N; i++) {
     circles.push(new Circle(x, y, radius, "blue", i + 1, 3));
 }
 
-// Función para color aleatorio
+// Color aleatorio
 function getRandomColor() {
     return `hsl(${Math.random() * 360}, 100%, 50%)`;
 }
 
-// Detectar colisiones (SIN rebote)
+// Colisiones con rebote real
 function detectCollisions() {
 
-    // Resetear colores antes de detectar
+    // Resetear colores
     circles.forEach(c => c.color = c.baseColor);
 
     for (let i = 0; i < circles.length; i++) {
@@ -82,12 +82,47 @@ function detectCollisions() {
             let dy = circles[j].posY - circles[i].posY;
             let distance = Math.sqrt(dx * dx + dy * dy);
 
-            // 🔥 Colisión si se tocan o traslapan
             if (distance <= circles[i].radius + circles[j].radius) {
 
-                // Cambiar color de ambos
+                // 🎨 Cambiar color
                 circles[i].color = getRandomColor();
                 circles[j].color = getRandomColor();
+
+                // 🔥 VECTOR NORMAL
+                let nx = dx / distance;
+                let ny = dy / distance;
+
+                // 🔥 VECTOR TANGENTE
+                let tx = -ny;
+                let ty = nx;
+
+                // 🔥 PROYECCIONES
+                let v1n = nx * circles[i].dx + ny * circles[i].dy;
+                let v1t = tx * circles[i].dx + ty * circles[i].dy;
+
+                let v2n = nx * circles[j].dx + ny * circles[j].dy;
+                let v2t = tx * circles[j].dx + ty * circles[j].dy;
+
+                // 🔥 INTERCAMBIAR NORMAL (rebote real)
+                let temp = v1n;
+                v1n = v2n;
+                v2n = temp;
+
+                // 🔥 NUEVAS VELOCIDADES
+                circles[i].dx = tx * v1t + nx * v1n;
+                circles[i].dy = ty * v1t + ny * v1n;
+
+                circles[j].dx = tx * v2t + nx * v2n;
+                circles[j].dy = ty * v2t + ny * v2n;
+
+                // 🔥 EVITAR QUE SE ENCIMEN
+                let overlap = (circles[i].radius + circles[j].radius - distance) / 2;
+
+                circles[i].posX -= overlap * nx;
+                circles[i].posY -= overlap * ny;
+
+                circles[j].posX += overlap * nx;
+                circles[j].posY += overlap * ny;
             }
         }
     }
