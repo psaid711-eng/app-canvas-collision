@@ -1,5 +1,5 @@
 (() => {
-    const canvas = document.getElementById("canvasCollision");
+    const canvas = document.getElementById("canvasMove");
     const ctx = canvas.getContext("2d");
     const window_height = 300;
     const window_width = canvas.parentElement.clientWidth;
@@ -9,9 +9,8 @@
     class Circle {
         constructor(x, y, radius, color, text, speed) {
             this.posX = x; this.posY = y;
-            this.radius = radius;
-            this.baseColor = color; this.color = color;
-            this.text = text;
+            this.radius = radius; this.color = color;
+            this.text = text; this.speed = speed;
             this.dx = (Math.random() - 0.5) * speed * 2;
             this.dy = (Math.random() - 0.5) * speed * 2;
         }
@@ -40,39 +39,21 @@
     }
 
     let circles = [];
-    window.initFase2 = (count) => {
+    window.initFase1 = (count) => {
         circles = [];
         for (let i = 0; i < count; i++) {
             let radius = Math.random() * 15 + 10;
             let x = Math.random() * (window_width - 2 * radius) + radius;
             let y = Math.random() * (window_height - 2 * radius) + radius;
-            // Círculos ROJOS por defecto
             circles.push(new Circle(x, y, radius, "#ff4444", i + 1, 3));
         }
     };
 
-    function detectCollisions() {
-        circles.forEach(c => c.color = c.baseColor);
-        for (let i = 0; i < circles.length; i++) {
-            for (let j = i + 1; j < circles.length; j++) {
-                let dx = circles[j].posX - circles[i].posX;
-                let dy = circles[j].posY - circles[i].posY;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance <= circles[i].radius + circles[j].radius) {
-                    // Cambian a AMARILLO al chocar
-                    circles[i].color = "#ffff00";
-                    circles[j].color = "#ffff00";
-                }
-            }
-        }
-    }
-
     function updateAnim() {
         requestAnimationFrame(updateAnim);
         ctx.clearRect(0, 0, window_width, window_height);
-        detectCollisions();
         circles.forEach(circle => circle.update(ctx));
     }
-    window.initFase2(10);
+    window.initFase1(10);
     updateAnim();
 })();
