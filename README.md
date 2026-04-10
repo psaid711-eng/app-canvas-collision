@@ -1,43 +1,75 @@
-# 🔴 Colisión de Objetos en Canvas
+# 🎯 Simulación Interactiva de Objetos en Canvas
 
-Este proyecto es una suite de simulaciones interactivas desarrolladas con **HTML5 Canvas** y **JavaScript**, que ilustran la progresión desde el movimiento básico hasta la física de rebote elástico.
+## 📌 Descripción
 
-**Desarrollado por:** Pedro Said Otero (2026)
+Este proyecto consiste en una simulación interactiva desarrollada con HTML5 Canvas y JavaScript, donde múltiples objetos 2D reaccionan a eventos del usuario como el movimiento del mouse y clics.
 
----
-
-## 🚀 Fases del Proyecto
-
-La simulación se divide en tres niveles de complejidad técnica, visualizados simultáneamente en el panel principal:
-
-### 1. Fase 01: Movimiento Simple (`main.js`)
-* **Concepto:** Implementación de cinemática básica.
-* **Funcionalidad:** Los objetos se desplazan por el lienzo y rebotan exclusivamente contra los bordes (paredes) del canvas, invirtiendo su vector de velocidad al tocar los límites.
-
-### 2. Fase 02: Contacto y Detección (`main_colision.js`)
-* **Concepto:** Detección de colisiones circulares.
-* **Funcionalidad:** Utiliza la fórmula de distancia entre dos puntos para detectar superposición. Al ocurrir el contacto, los objetos cambian visualmente de **Rojo a Amarillo**, permitiendo ver el área de intersección.
-
-### 3. Fase 03: Física Real y Rebote (`main_rebote.js`)
-* **Concepto:** Resolución de colisiones elásticas y vectores normales.
-* **Funcionalidad:** * **Intercambio de Momentum:** Los objetos rebotan entre sí calculando vectores normales y tangenciales.
-    * **Anti-solapamiento:** Incluye lógica para separar círculos que quedan atrapados uno dentro de otro.
-    * **Feedback Visual:** Cambio de color dinámico al impacto (**Rojo a Blanco**).
+El sistema implementa reglas de negocio que permiten la interacción dinámica, control estadístico y progresión por niveles, simulando un comportamiento similar a un videojuego.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## ⚙️ Funcionalidades
 
-* **HTML5 & Canvas API:** Renderizado de gráficos 2D.
-* **JavaScript (ES6+):** Lógica orientada a objetos para el manejo de partículas.
-* **Bootstrap 5:** Estructura de rejilla responsiva.
-* **CSS Moderno:** Diseño oscuro con variables personalizadas y efectos de transición.
+* 🎨 Cambio de color al pasar el mouse sobre los objetos
+* 🖱️ Eliminación de objetos mediante clic con animación de desvanecimiento
+* ⬆️ Movimiento de objetos de abajo hacia arriba
+* 🔀 Trayectoria aleatoria en cada objeto
+* 📊 Contador de elementos eliminados (numérico y porcentual)
+* 🎮 Sistema de niveles (cada 10 objetos eliminados)
+* ⚡ Incremento de velocidad por nivel
+* 🔄 Reinicio automático de objetos en cada nivel
+
+---
+
+## 🧠 Lógica del sistema
+
+El sistema detecta la interacción del usuario mediante coordenadas del mouse y eventos de clic, modificando el estado de los objetos en tiempo real.
+
+Cada vez que se eliminan 10 objetos, el sistema:
+
+1. Incrementa el nivel
+2. Aumenta la velocidad de los objetos
+3. Reinicia la simulación
 
 ---
 
-## 🎮 Características Interactivas
+## 🛠️ Tecnologías utilizadas
 
-* **Sincronizador Global:** Panel de control con `input range` para ajustar la cantidad de círculos (1 a 50) en tiempo real en las tres fases.
-* **Interfaz Adaptativa:** Diseño responsivo que ajusta los lienzos según el tamaño de la pantalla.
+* HTML5
+* CSS3
+* JavaScript
+* Canvas API
+* Bootstrap 5
 
 ---
+
+## 👨‍💻 Autor
+
+**Pedro Said Otero**
+Desarrollador
+
+---
+
+## 🚀 Ejecución
+
+1. Abrir el archivo `index.html` en el navegador
+2. Interactuar con los objetos usando el mouse
+3. Ajustar la cantidad de elementos con el control deslizante
+
+---
+
+## 📈 Objetivo académico
+
+Aplicar conceptos de:
+
+* Programación orientada a objetos
+* Manejo de eventos
+* Animaciones en Canvas
+* Lógica de negocio
+* Interacción humano-computadora
+
+---
+
+## 🏁 Conclusión
+
+Este proyecto demuestra la integración de múltiples conceptos de desarrollo web para crear una aplicación interactiva, dinámica y escalable, simulando comportamientos complejos en tiempo real.
